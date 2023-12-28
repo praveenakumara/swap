@@ -1,0 +1,19 @@
+#!/bin/bash
+
+SWAP_FILE="/swapfile"
+SWAP_SIZE="2G"  # Adjust the size as needed
+
+# Create swap file
+sudo fallocate -l $SWAP_SIZE $SWAP_FILE
+
+# Set proper permissions
+sudo chmod 600 $SWAP_FILE
+
+# Set up swap space
+sudo mkswap $SWAP_FILE
+
+# Enable swap file
+sudo swapon $SWAP_FILE
+
+# Make the swap file permanent by adding an entry to /etc/fstab
+echo "$SWAP_FILE none swap sw 0 0" | sudo tee -a /etc/fstab
